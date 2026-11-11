@@ -4,7 +4,7 @@ module.exports = async function handler(req, res) {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   if (req.method !== 'POST') { res.setHeader('Allow', 'POST'); return res.status(405).json({ error: 'Method not allowed.' }); }
   if (!process.env.JARVIS_ACCESS_CODE) return res.status(503).json({ error: 'Workspace access is not configured. Add JARVIS_ACCESS_CODE in hosting environment settings.' });
-  const suppliedCode = (req.headers.authorization || '').replace(/^Bearer\\s+/i, '');
+  const suppliedCode = (req.headers.authorization || '').replace(/^Bearer\s+/i, '');
   if (!suppliedCode || suppliedCode.length !== process.env.JARVIS_ACCESS_CODE.length || suppliedCode !== process.env.JARVIS_ACCESS_CODE) return res.status(401).json({ error: 'Access code required or incorrect.' });
   if (!process.env.GROQ_API_KEY) return res.status(503).json({ error: 'AI is not connected yet. Add GROQ_API_KEY in your hosting environment settings.' });
   try {
