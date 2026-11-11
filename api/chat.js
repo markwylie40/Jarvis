@@ -2,7 +2,8 @@ const SYSTEM_PROMPT = `You are JARVIS, a capable, calm, thoughtful personal AI a
 module.exports = async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
   res.setHeader('X-Content-Type-Options', 'nosniff');
-  if (req.method !== 'POST') { res.setHeader('Allow', 'POST'); return res.status(405).json({ error: 'Method not allowed.' }); }
+  if (req.method === 'GET') return res.status(200).json({ ok: true, accessConfigured: Boolean(process.env.JARVIS_ACCESS_CODE), aiConfigured: Boolean(process.env.GROQ_API_KEY) });
+  if (req.method !== 'POST') { res.setHeader('Allow', 'GET, POST'); return res.status(405).json({ error: 'Method not allowed.' }); }
   if (!process.env.JARVIS_ACCESS_CODE) return res.status(503).json({ error: 'Workspace access is not configured. Add JARVIS_ACCESS_CODE in hosting environment settings.' });
   const suppliedCode = (req.headers.authorization || '').replace(/^Bearer\s+/i, '');
   if (!suppliedCode || suppliedCode.length !== process.env.JARVIS_ACCESS_CODE.length || suppliedCode !== process.env.JARVIS_ACCESS_CODE) return res.status(401).json({ error: 'Access code required or incorrect.' });
