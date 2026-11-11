@@ -7,18 +7,21 @@ This branch adds a responsive browser-first JARVIS experience in `webapp/`. It i
 - Responsive assistant workspace and conversation history
 - Browser speech recognition where supported (microphone permission required)
 - Installable PWA manifest and service worker
-- Server-side OpenAI chat endpoint; the provider key is never sent to the browser
+- Server-side Groq chat endpoint; the provider key is never sent to the browser
 - Vercel static hosting configuration
 
-## Deploy a preview with Vercel
+## Deploy with Vercel
 
 1. Import `markwylie40/Jarvis` into Vercel and select the `webapp-port` branch.
 2. Keep the project root set to the repository root. `vercel.json` serves the `webapp/` directory and exposes `api/chat.js`.
-3. In Project Settings → Environment Variables, add `OPENAI_API_KEY` (server-side only) and a long, random `JARVIS_ACCESS_CODE` (server-side only; share it only with intended users). Optionally add `JARVIS_MODEL` to choose a model available to your API account; the default is `gpt-4o-mini`.
-4. On first chat, users enter the access code. It is held in that browser tab's session storage and sent only to the API endpoint.
-4. Deploy a Preview first. Do not put the API key in a `NEXT_PUBLIC_*` variable or in any file under `webapp/`.
+3. In Project Settings → Environment Variables, add `GROQ_API_KEY` (server-side only) and a long, random `JARVIS_ACCESS_CODE` (server-side only; share it only with intended users).
+4. Optionally add `JARVIS_MODEL` to choose a model available to your Groq account. The default is `llama-3.3-70b-versatile`.
+5. On first chat, users enter the access code. It is held in that browser tab's session storage and sent only to the API endpoint.
+6. Deploy a Preview first, then promote/deploy to Production after testing. Do not put the API key in a `NEXT_PUBLIC_*` variable or in any file under `webapp/`.
 
-The API endpoint remains disabled until both `OPENAI_API_KEY` and `JARVIS_ACCESS_CODE` are configured. Never commit secrets. The shared access code is a basic private-preview gate, not full user authentication; before inviting the public, add per-user accounts, robust rate limiting/quotas, abuse monitoring, and a data-retention policy.
+The API endpoint remains disabled until both `GROQ_API_KEY` and `JARVIS_ACCESS_CODE` are configured. Create a Groq API key in the Groq console. Never commit secrets.
+
+The shared access code is a basic private-preview gate, not full user authentication; before inviting the public, add per-user accounts, robust rate limiting/quotas, abuse monitoring, and a data-retention policy.
 
 ## Local preview
 
@@ -34,4 +37,4 @@ The web app cannot create an Android-style overlay above other apps, run a persi
 
 ## Security notes
 
-The API validates request shape and size, limits conversation context, and keeps the provider key server-side. Before public production use, add authenticated user accounts, per-user rate limiting/quotas, abuse monitoring, and an explicit data-retention policy. Conversation history currently stays in the browser's local storage on that device.
+The API validates request shape and size, limits conversation context, and keeps the Groq provider key server-side. Before public production use, add authenticated user accounts, per-user rate limiting/quotas, abuse monitoring, and an explicit data-retention policy. Conversation history currently stays in the browser's local storage on that device.
