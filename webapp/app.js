@@ -24,7 +24,7 @@ $('#new-chat').onclick=newConversation;
 document.querySelectorAll('.suggestion').forEach(b=>b.addEventListener('click',()=>sendMessage(b.dataset.prompt)));
 document.querySelectorAll('.nav-item').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.view)));
 $('#menu-button').onclick=()=>$('#sidebar').classList.toggle('open');
-$('#settings-button').onclick=()=>toast('Preferences will be available in a future update.');
+$('#settings-button').onclick=()=>{toast('Checking JARVIS connection…');const xhr=new XMLHttpRequest();xhr.open('GET','/api/chat?health=1',true);xhr.timeout=10000;xhr.onload=()=>{try{const d=JSON.parse(xhr.responseText);toast(xhr.status===200&&d.ok?'Server reachable · Access '+(d.accessConfigured?'ready':'missing')+' · AI key '+(d.aiConfigured?'ready':'missing'):'Server check failed · HTTP '+xhr.status)}catch{toast('Server replied, but the response was unreadable.')}};xhr.onerror=()=>toast('Browser cannot reach the JARVIS server.');xhr.ontimeout=()=>toast('Connection check timed out.');xhr.send()};
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installPrompt=e;$('#install-button').hidden=false});
 $('#install-button').onclick=async()=>{if(!installPrompt){toast('On iPhone: tap Share, then Add to Home Screen.');return}installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;$('#install-button').hidden=true};
 if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
