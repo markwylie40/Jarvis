@@ -14,10 +14,11 @@ This branch adds a responsive browser-first JARVIS experience in `webapp/`. It i
 
 1. Import `markwylie40/Jarvis` into Vercel and select the `webapp-port` branch.
 2. Keep the project root set to the repository root. `vercel.json` serves the `webapp/` directory and exposes `api/chat.js`.
-3. In Project Settings → Environment Variables, add `OPENAI_API_KEY` (server-side only). Optionally add `JARVIS_MODEL` to choose a model available to your API account; the default is `gpt-4o-mini`.
+3. In Project Settings → Environment Variables, add `OPENAI_API_KEY` (server-side only) and a long, random `JARVIS_ACCESS_CODE` (server-side only; share it only with intended users). Optionally add `JARVIS_MODEL` to choose a model available to your API account; the default is `gpt-4o-mini`.
+4. On first chat, users enter the access code. It is held in that browser tab's session storage and sent only to the API endpoint.
 4. Deploy a Preview first. Do not put the API key in a `NEXT_PUBLIC_*` variable or in any file under `webapp/`.
 
-The API endpoint returns a setup message until `OPENAI_API_KEY` is configured. Never commit secrets.
+The API endpoint remains disabled until both `OPENAI_API_KEY` and `JARVIS_ACCESS_CODE` are configured. Never commit secrets. The shared access code is a basic private-preview gate, not full user authentication; before inviting the public, add per-user accounts, robust rate limiting/quotas, abuse monitoring, and a data-retention policy.
 
 ## Local preview
 
