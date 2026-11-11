@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#090d17">
+  <meta name="description" content="JARVIS — your personal AI workspace.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icon.svg">
+  <link rel="stylesheet" href="/styles.css">
+  <title>JARVIS — Personal AI</title>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="/" aria-label="JARVIS home"><span class="brand-mark">J</span><span>JARVIS<small>PERSONAL INTELLIGENCE</small></span></a>
+      <button class="new-chat" id="new-chat"><span>＋</span> New conversation</button>
+      <div class="side-label">WORKSPACE</div>
+      <button class="nav-item active" data-view="chat"><span>◈</span> Assistant</button>
+      <button class="nav-item" data-view="activity"><span>◷</span> Activity</button>
+      <div class="side-label history-label">RECENT</div>
+      <div class="history-list" id="history-list"></div>
+      <div class="sidebar-bottom">
+        <div class="connection"><span class="pulse"></span><span><b id="connection-label">Interface ready</b><small>AI connection configured on server</small></span></div>
+        <button class="profile" id="settings-button"><span class="avatar">M</span><span><b>My workspace</b><small>Settings & preferences</small></span><span class="profile-more">···</span></button>
+      </div>
+    </aside>
+
+    <main class="main-panel">
+      <header class="topbar">
+        <button class="icon-button mobile-menu" id="menu-button" aria-label="Open menu">☰</button>
+        <div class="breadcrumb"><span>Workspace</span><i>/</i><b id="top-title">Assistant</b></div>
+        <div class="top-actions"><span class="secure-label"><span>●</span> PRIVATE SESSION</span><button class="icon-button" id="install-button" hidden aria-label="Install JARVIS">↓</button><button class="avatar top-avatar" aria-label="Profile">M</button></div>
+      </header>
+
+      <section class="chat-view" id="chat-view">
+        <div class="welcome" id="welcome">
+          <div class="eyebrow"><span class="eyebrow-line"></span> YOUR AI, READY WHEN YOU ARE</div>
+          <div class="orb-wrap"><div class="orb-ring ring-one"></div><div class="orb-ring ring-two"></div><div class="orb"><span>J</span></div><div class="orb-dot dot-a"></div><div class="orb-dot dot-b"></div></div>
+          <h1>Good to see you.<br><span>How can I help?</span></h1>
+          <p class="welcome-copy">Your personal assistant for thinking, creating and getting things done.</p>
+          <div class="suggestions">
+            <button class="suggestion" data-prompt="Help me plan my day and prioritise what matters."><span class="suggestion-icon">◷</span><b>Plan my day</b><small>Turn priorities into a clear plan</small><span class="suggestion-arrow">↗</span></button>
+            <button class="suggestion" data-prompt="Help me think through a problem step by step."><span class="suggestion-icon">⌘</span><b>Think it through</b><small>Work through a tricky problem</small><span class="suggestion-arrow">↗</span></button>
+            <button class="suggestion" data-prompt="Draft a clear, professional email for me."><span class="suggestion-icon">✎</span><b>Write something</b><small>Draft, refine and polish ideas</small><span class="suggestion-arrow">↗</span></button>
+            <button class="suggestion" data-prompt="Explain a complex topic in simple terms."><span class="suggestion-icon">◇</span><b>Learn something</b><small>Make a complex topic clearer</small><span class="suggestion-arrow">↗</span></button>
+          </div>
+        </div>
+        <div class="messages" id="messages" aria-live="polite"></div>
+        <div class="composer-wrap">
+          <div class="composer" id="composer">
+            <textarea id="message-input" rows="1" placeholder="Message JARVIS…" aria-label="Message JARVIS"></textarea>
+            <div class="composer-tools"><div class="composer-hint"><span class="keycap">↵</span> to send <span class="hint-sep">·</span> <span>Shift + ↵ for new line</span></div><div class="composer-actions"><button class="tool-button" id="voice-button" aria-label="Voice input" title="Voice input">⌁</button><button class="send-button" id="send-button" aria-label="Send message">↑</button></div></div>
+          </div>
+          <div class="disclaimer">JARVIS can make mistakes. Check important information.</div>
+        </div>
+      </section>
+
+      <section class="activity-view" id="activity-view" hidden><div class="page-heading"><div class="eyebrow">YOUR WORKSPACE</div><h1>Activity</h1><p>Your recent conversations live here on this device.</p></div><div class="activity-list" id="activity-list"></div></section>
+      <footer class="statusbar"><span><span class="status-dot"></span> ALL SYSTEMS NOMINAL</span><span>JARVIS WEB <b>v0.1</b></span></footer>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="/app.js" defer></script>
+</body>
+</html>

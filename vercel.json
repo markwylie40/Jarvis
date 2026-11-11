@@ -1,0 +1,6 @@
+{
+  "outputDirectory": "webapp",
+  "functions": {
+    "api/chat.js": { "maxDuration": 30 }
+  }
+}
